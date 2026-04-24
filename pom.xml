@@ -5,9 +5,12 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.java.testing</groupId>
+  <groupId>com.junit</groupId>
   <artifactId>junit-testing</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>junit-testing</name>
 
   <properties>
     <maven.compiler.source>25</maven.compiler.source>
@@ -17,32 +20,29 @@
 
   <dependencies>
 
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.42</version>
-      <scope>compile</scope>
-    </dependency>
-
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <version>5.13.4</version>
       <scope>test</scope>
     </dependency>
 
+    <!-- Lombok -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.42</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
 
   <build>
+    <finalName>junit-testing</finalName>
     <plugins>
 
+      <!-- Java 25 Compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -50,13 +50,32 @@
         <configuration>
           <source>25</source>
           <target>25</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.42</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.java.testing.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <!-- Run JUnit 5 Tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>3.1.2</version>
       </plugin>
 
     </plugins>

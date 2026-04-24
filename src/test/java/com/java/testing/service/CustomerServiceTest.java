@@ -1,13 +1,16 @@
 package com.java.testing.service;
 
-import com.java.testing.exception.CustomerAlreadyExistsException;
+import com.java.testing.exception.CustomerExistsException;
 import com.java.testing.exception.CustomerNotFoundException;
 import com.java.testing.model.Customer;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
-import static junit.framework.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerServiceTest {
 
@@ -16,17 +19,29 @@ public class CustomerServiceTest {
 
     @BeforeEach
     public void setUp() {
-        customers = List.of(
-                Customer.builder().id(1).name("Vignesh").email("Vignesh@gmail.com").balance(100.0).build(),
-                Customer.builder().id(2).name("Surya").email("Surya@gmail.com").balance(200.0).build()
-        );
+        customers = new ArrayList<>(List.of(
+                Customer.builder()
+                        .id(1)
+                        .name("Vignesh")
+                        .email("Vignesh@gmail.com")
+                        .balance(100.0)
+                        .build(),
+
+                Customer.builder()
+                        .id(2)
+                        .name("Surya")
+                        .email("Surya@gmail.com")
+                        .balance(200.0)
+                        .build()
+        ));
 
         customerService = new CustomerService(customers);
     }
 
     @Test
     void shouldAddCustomerWhenDataIsValid() {
-        Customer customer = new Customer(3, "Yogesh", "Yogesh@test.com", 500);
+        Customer customer =
+                new Customer(3, "Yogesh", "Yogesh@test.com", 500.0);
 
         Customer result = customerService.addCustomer(customer);
 
@@ -36,9 +51,10 @@ public class CustomerServiceTest {
 
     @Test
     void shouldThrowExceptionWhenAddingDuplicateCustomer() {
-        Customer duplicate = new Customer(1, "Test", "test@test.com", 500);
+        Customer duplicate =
+                new Customer(1, "Test", "test@test.com", 500.0);
 
-        assertThrows(CustomerAlreadyExistsException.class,
+        assertThrows(CustomerExistsException.class,
                 () -> customerService.addCustomer(duplicate));
     }
 

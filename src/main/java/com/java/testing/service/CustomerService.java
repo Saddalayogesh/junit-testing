@@ -1,6 +1,6 @@
 package com.java.testing.service;
 
-import com.java.testing.exception.CustomerAlreadyExistsException;
+import com.java.testing.exception.CustomerExistsException;
 import com.java.testing.exception.CustomerNotFoundException;
 import com.java.testing.model.Customer;
 
@@ -21,7 +21,7 @@ public class CustomerService {
                 .anyMatch(c -> c.getId() == customer.getId());
 
         if (exists) {
-            throw new CustomerAlreadyExistsException(
+            throw new CustomerExistsException(
                     "Customer already exists with ID: " + customer.getId());
         }
 
