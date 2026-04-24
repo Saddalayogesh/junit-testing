@@ -37,10 +37,13 @@ This project is a Java-based Customer Management System built to practice JUnit 
 
 src/main/java/com/java/testing/
 ├── model        Customer entity
+
 ├── service      Business logic
+
 ├── exception    Custom exceptions
 
 src/test/java/com/java/testing/
+
 └── service      JUnit test classes
 
 ---
