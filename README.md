@@ -36,6 +36,7 @@ This project is a Java-based Customer Management System built to practice JUnit 
 ## 📂 Project Structure
 
 src/main/java/com/java/testing/
+
 ├── model        Customer entity
 
 ├── service      Business logic
